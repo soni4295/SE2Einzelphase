@@ -13,6 +13,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private EditText editMatrikelNr;
@@ -63,4 +64,29 @@ public class MainActivity extends AppCompatActivity {
             serverResponse.setText(result);
         }
     }
+    public void berechnen (View v) {
+        //01653947 mod 7 = Aufgabe 1 --> 0 1 6 5 3 9 4 7 --> 0 a 6 e 3 i 4 g
+        String matNr = editMatrikelNr.getText().toString();
+        char [] numbers = matNr.toCharArray();
+        int asciitable = 97;
+        for (int i = 1; i < numbers.length; i++) {
+            if (i % 2 != 0) {
+                switch (numbers[i]) {
+                    case '0': numbers[i] = (char) (asciitable + 10); break;
+                    case '1': numbers[i] = (char) asciitable; break; //97 = a
+                    case '2': numbers[i] = (char) (asciitable + 1) ; break; //98 = b
+                    case '3': numbers[i] = (char) (asciitable + 2) ; break; //99 = c
+                    case '4': numbers[i] = (char) (asciitable + 3) ; break; //100 = d
+                    case '5': numbers[i] = (char) (asciitable + 4) ; break; //101 = e
+                    case '6': numbers[i] = (char) (asciitable + 5) ; break; //102 = f
+                    case '7': numbers[i] = (char) (asciitable + 6) ; break; //103 = g
+                    case '8': numbers[i] = (char) (asciitable + 7) ; break; //104 = h
+                    case '9': numbers[i] = (char) (asciitable + 8) ; break; //106 = i
+                }
+            }
+        }
+        String result = Arrays.toString(numbers);
+        calculateResult.setText(result.replace("[","").replace("]",""));
+    }
+
 }
